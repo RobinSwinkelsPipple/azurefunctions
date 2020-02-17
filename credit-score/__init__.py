@@ -1,13 +1,22 @@
 import logging
 import random
 import azure.functions as func
+import json
 
 
 def prepare_response(name, resp, score):
     if name:
-        response = resp(f"Hello {name}! \n\nYour credit score is: {score}")
+        data = {}
+        data['creditScore'] = {}
+        data['creditScore']['name'] = name
+        data['creditScore']['score'] = score
+        response = resp(json.dumps(data))
     else:
-        response = resp("Please pass a name on the query string or in the request body", status_code=400)
+        data = {}
+        data['error'] = {}
+        data['error']['message'] = "name parameter is missing"
+        response = resp(json.dumps(data), status_code=400)
+
     return response
 
 

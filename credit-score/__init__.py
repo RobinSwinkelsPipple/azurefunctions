@@ -25,7 +25,7 @@ def prepare_response(name, score):
     return prepare_response_object(data, status)
 
 
-def compute_credit_score():
+def compute_credit_score() -> int:
     br = BusinessRules()
     br_score = br.predict("test")
     print(f"br_score: {br_score}")
@@ -37,7 +37,7 @@ def compute_credit_score():
     # print(f"ml_score: {ml_score}")
 
 
-def parse_request(request):     
+def parse_request(request) -> str:     
     name = request.params.get('name')
         
     try:

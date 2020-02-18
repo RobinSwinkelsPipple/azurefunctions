@@ -2,6 +2,8 @@ import logging
 import random
 import azure.functions as func
 import json
+from .BusinessRules import BusinessRules
+from .MLModel import MLModel
 
 
 def prepare_response_object(data, status_code=200):
@@ -24,7 +26,15 @@ def prepare_response(name, score):
 
 
 def compute_credit_score():
-    return random.randint(0,100)
+    br = BusinessRules()
+    br_score = br.predict("test")
+    print(f"br_score: {br_score}")
+    return br_score
+
+    # ml = MLModel()
+    # model_name = 'best_model.pkl' # HARDCODED
+    # ml_score = ml.predict("test", model_name)
+    # print(f"ml_score: {ml_score}")
 
 
 def parse_request(request):     
